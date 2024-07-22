@@ -99,7 +99,7 @@ export default {
       pluginId: "topic-thumbnails-masonry",
       topicThumbnailsService: service("topic-thumbnails"),
 
-      masonryTargetColumnWidth: 250,
+      masonryTargetColumnWidth: 200,
       masonryGridSpacingPixels: 10,
       masonryTitleSpacePixels: 76,
       masonryDefaultAspect: 1.3,
