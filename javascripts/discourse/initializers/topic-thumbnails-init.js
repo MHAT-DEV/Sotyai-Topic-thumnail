@@ -116,7 +116,7 @@ export default {
         "masonryGridSpacingPixels"
       )
       masonryColumnWidth(numColumns, containerWidth, gridSpacing) {
-        return (containerWidth - (numColumns - 2) * gridSpacing) / numColumns;
+        return (containerWidth - (numColumns - 1) * gridSpacing) / numColumns;
       },
 
       didInsertElement() {
