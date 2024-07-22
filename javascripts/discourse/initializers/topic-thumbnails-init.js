@@ -107,7 +107,9 @@ export default {
 
       @discourseComputed("masonryContainerWidth")
       masonryNumColumns(width) {
-        return Math.floor(width / this.masonryTargetColumnWidth);
+        const minColumns = 2;
+        const calculatedColumns = Math.floor(width / this.masonryTargetColumnWidth);
+        return Math.max(calculatedColumns, minColumns);
       },
 
       @discourseComputed(
@@ -266,11 +268,9 @@ export default {
         }
 
         return htmlSafe(
-          `--masonry-height: ${Math.round(masonryData.height)}px; ` +
-            `--masonry-height-above: ${Math.round(
-              masonryData.heightAbove
-            )}px; ` +
-            `--masonry-column-index: ${masonryData.columnIndex};`
+          `grid-row-start: span ${Math.ceil(
+            masonryData.height / 50
+          )}; grid-column-start: ${masonryData.columnIndex + 1};`
         );
       },
     });
