@@ -1,0 +1,2 @@
+{{~raw "topic-list-thumbnail" topic=context.topic location="before-link"}}
+
