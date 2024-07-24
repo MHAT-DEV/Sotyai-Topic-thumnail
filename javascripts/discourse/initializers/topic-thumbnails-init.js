@@ -107,6 +107,10 @@ export default {
 
       @discourseComputed("masonryContainerWidth")
       masonryNumColumns(width) {
+        // Check if the width is for a mobile device (less than or equal to 768px)
+        if (width <= 768) {
+          return 2;
+        }
         return Math.floor(width / this.masonryTargetColumnWidth);
       },
 
@@ -165,10 +169,6 @@ export default {
         }
 
         this.filteredTopics.forEach((topic) => {
-
-          console.log(topic);
-          console.log(this);
-
           // Pick the column with the lowest height
           const smallestColumn = columnHeights.indexOf(
             Math.min(...columnHeights)
@@ -181,38 +181,36 @@ export default {
           }
           aspect = Math.max(aspect, this.masonryMinAspect);
 
-    // Change height with title variation
-    let titleHeight = 50;
+          // Change height with title variation
+          let titleHeight = 50;
 
-    if (topic.title.length > 90) {
-      titleHeight = 125;
-    } else if (topic.title.length > 60) {
-      titleHeight = 100;
-    } else if (topic.title.length > 30) {
-      titleHeight = 75;
-    }
+          if (topic.title.length > 90) {
+            titleHeight = 125;
+          } else if (topic.title.length > 60) {
+            titleHeight = 100;
+          } else if (topic.title.length > 30) {
+            titleHeight = 75;
+          }
 
-    // Change height with tag variation
-    let tagHeight = 0;
+          // Change height with tag variation
+          let tagHeight = 0;
 
-    let tagCharacters = topic.tags.join();
+          let tagCharacters = topic.tags.join();
 
-    if (tagCharacters <= 30) {
-      tagHeight = 22;
-    }
-    else if (tagCharacters > 60) {
-      tagHeight = 44;
-    }
-    else if (tagCharacters > 90) {
-      tagHeight = 66;
-    }
+          if (tagCharacters <= 30) {
+            tagHeight = 22;
+          } else if (tagCharacters > 60) {
+            tagHeight = 44;
+          } else if (tagCharacters > 90) {
+            tagHeight = 66;
+          }
 
-    let bottomHeight = 65;
+          let bottomHeight = 65;
 
-    let extraHeight = titleHeight + tagHeight + bottomHeight;
+          let extraHeight = titleHeight + tagHeight + bottomHeight;
 
-    const thisHeight =
-      this.masonryColumnWidth / aspect + extraHeight;
+          const thisHeight =
+            this.masonryColumnWidth / aspect + extraHeight;
 
           topic.set("masonryData", {
             columnIndex: smallestColumn,
@@ -270,7 +268,7 @@ export default {
             `--masonry-height-above: ${Math.round(
               masonryData.heightAbove
             )}px; ` +
-            `--masonry-column-index: ${masonryData.columnIndex};`
+            `--masonry-column: ${Math.round(masonryData.columnIndex)}; `
         );
       },
     });
